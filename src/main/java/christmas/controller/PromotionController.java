@@ -14,10 +14,20 @@ public class PromotionController {
 
     }
     private OrderDate getDate(){
-        return new OrderDate(inputView.readDate());
+        try{
+            OrderDate orderDate = new OrderDate(inputView.readDate());
+            return orderDate;
+        }catch (IllegalArgumentException e){
+            return getDate();
+        }
     }
 
     private Menu getMenu(){
-        return new Menu(inputView.readMenu());
+        try {
+            Menu menu = new Menu(inputView.readMenu());
+            return menu;
+        }catch (IllegalArgumentException e){
+            return getMenu();
+        }
     }
 }
