@@ -11,4 +11,16 @@ class OrderDateTest {
         assertThatThrownBy(()-> new OrderDate("asdf"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void 주문날짜_범위_확인_큰수(){
+        assertThatThrownBy(()-> new OrderDate("50"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 주문날짜_범위_확인_작은수(){
+        assertThatThrownBy(()-> new OrderDate("-10"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
