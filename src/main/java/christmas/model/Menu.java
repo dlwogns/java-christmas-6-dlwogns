@@ -14,15 +14,20 @@ public class Menu {
     public Menu(final String menu) {
         validateMenuFormat(menu);
         this.menu = parseMenu(menu);
-    }
-    private void validate(final String menu){
-        validateMenuFormat(menu);
-
+        validateMenuNumbers(this.menu);
     }
     private void validateMenuFormat(final String menu){
         if(!Pattern.matches(MENU_FORMAT, menu)){
             throw new IllegalArgumentException();
         }
+    }
+    private void validateMenuNumbers(Map<String,Integer> menu){
+        if(checkMenuNumberIsLessThanZero(menu)){
+            throw new IllegalArgumentException();
+        }
+    }
+    private boolean checkMenuNumberIsLessThanZero(Map<String, Integer> menu){
+        return menu.values().stream().filter(number -> {return 0 >= number;}).count() > 0;
     }
 
     private Map<String,Integer> parseMenu(String menu){
