@@ -1,7 +1,6 @@
 package christmas.model;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -25,6 +24,12 @@ public class Menu {
         if(checkMenuNumberIsLessThanZero(menu)){
             throw new IllegalArgumentException();
         }
+        if(checkMenuNumberIsMoreThanLimit(menu)){
+            throw new IllegalArgumentException();
+        }
+    }
+    private boolean checkMenuNumberIsMoreThanLimit(Map<String,Integer> menu){
+        return menu.values().stream().mapToInt(Integer::intValue).sum() > 20;
     }
     private boolean checkMenuNumberIsLessThanZero(Map<String, Integer> menu){
         return menu.values().stream().filter(number -> {return 0 >= number;}).count() > 0;
