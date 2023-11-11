@@ -11,7 +11,6 @@ public class PromotionController {
 
     public void play(){
         outputView.printHelloMessage();
-
     }
     private OrderDate getDate(){
         try{
@@ -28,6 +27,9 @@ public class PromotionController {
             return menu;
         }catch (IllegalArgumentException e){
             return getMenu();
+        }catch (IllegalStateException e){
+            return getMenu();
         }
+
     }
 }
