@@ -1,6 +1,5 @@
 package christmas.model;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.Test;
 
@@ -26,5 +25,11 @@ class MenuTest {
         assertThatThrownBy(() -> new Menu("파스타-10,피자-20,햄버거-30"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+    @Test
+    void 메뉴판에_없는_메뉴_체크(){
+        assertThatThrownBy(() -> new MenuChecker().checkMenu(new Menu("피자-1").getMenu()))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
 
 }
