@@ -59,4 +59,13 @@ public class Menu {
     public Map<String, Integer> getMenu() {
         return menu;
     }
+
+    @Override
+    public String toString() {
+        String menu = "";
+        for(String menuName : this.menu.keySet()){
+            menu += menuName +" "+ this.menu.get(menuName) +"개\n";
+        }
+        return menu;
+    }
 }
