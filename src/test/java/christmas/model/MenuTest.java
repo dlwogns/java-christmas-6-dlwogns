@@ -30,6 +30,14 @@ class MenuTest {
         assertThatThrownBy(() -> new MenuChecker().checkMenu(new Menu("피자-1").getMenu()))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+    @Test
+    void 음료만_주문_체크(){
+        assertThatThrownBy(() -> {
+            MenuChecker menuChecker = new MenuChecker();
+            menuChecker.checkMenu(new Menu("레드와인-1").getMenu());
+            menuChecker.checkOnlyBeverage();
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
 
 
 }
