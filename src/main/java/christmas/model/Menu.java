@@ -56,8 +56,7 @@ public class Menu {
                 .collect(Collectors.toMap(arr -> arr[0], arr -> Integer.parseInt(arr[1])));
     }
 
-    @Override
-    public String toString() {
-        return menu.toString();
+    public Map<String, Integer> getMenu() {
+        return menu;
     }
 }
