@@ -1,7 +1,7 @@
 package christmas.model;
 
 public class OrderAmount {
-    private Integer orderAmount;
+    private final Integer orderAmount;
 
     public OrderAmount(Menu menu) {
         orderAmount = calculateOrderAmount(menu);
