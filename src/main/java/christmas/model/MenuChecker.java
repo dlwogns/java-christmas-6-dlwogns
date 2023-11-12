@@ -5,16 +5,13 @@ import java.util.Map;
 
 public class MenuChecker {
     private final EnumMap<MenuBoard, Integer> menuChecker = new EnumMap<>(MenuBoard.class);
-    private final Map<String, Integer> menu;
-    public MenuChecker(Map<String,Integer> menu) {
+
+    public MenuChecker() {
         for(MenuBoard menuBoard : MenuBoard.values()){
             menuChecker.put(menuBoard, 0);
         }
-        this.menu = menu;
-        checkMenu();
-        checkOnlyBeverage();
     }
-    private void checkMenu() throws IllegalArgumentException{
+    public void checkMenu(Map<String,Integer> menu) throws IllegalArgumentException{
         for(String menuName : menu.keySet()){
             MenuBoard menuBoard = checkMenuName(menuName);
             if(menuBoard == null){
@@ -31,7 +28,7 @@ public class MenuChecker {
         }
         return null;
     }
-    private void checkOnlyBeverage(){
+    public void checkOnlyBeverage(){
         int mainCount = menuChecker.get(MenuBoard.MAIN_COURSE);
         int appetizerCount = menuChecker.get(MenuBoard.APPETIZER);
         int dessertCount = menuChecker.get(MenuBoard.DESSERT);
