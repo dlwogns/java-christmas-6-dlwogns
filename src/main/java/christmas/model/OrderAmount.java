@@ -9,7 +9,7 @@ public class OrderAmount {
     private Integer calculateOrderAmount(Menu menu){
         Integer orderAmount=0;
         for(String menuName : menu.getMenu().keySet()){
-            orderAmount += checkMenuBoard(menuName);
+            orderAmount += checkMenuBoard(menuName) * menu.getMenu().get(menuName);
         }
         return orderAmount;
     }
