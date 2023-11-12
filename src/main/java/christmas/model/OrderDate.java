@@ -25,4 +25,18 @@ public class OrderDate {
             throw new IllegalArgumentException();
         }
     }
+    public boolean checkWeekEnd(){
+        if(orderDate%7 == 1 || orderDate%7 == 2)
+            return true;
+        return false;
+    }
+    public boolean checkStarDay(){
+        if(orderDate%7 == 3 || orderDate == 25)
+            return true;
+        return false;
+    }
+
+    public Integer getOrderDate() {
+        return orderDate;
+    }
 }
