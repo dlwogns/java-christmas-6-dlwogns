@@ -27,21 +27,21 @@ public class EventData {
     }
 
     private Integer calculateWeekDayDiscount(MenuChecker menuChecker, OrderDate orderDate) {
-        if (orderDate.checkWeekEnd() == true) {
+        if (orderDate.checkWeekEnd()) {
             return 0;
         }
         return menuChecker.getMenuChecker().get(MenuBoard.DESSERT) * 2023;
     }
 
     private Integer calculateWeekEndDiscount(MenuChecker menuChecker, OrderDate orderDate) {
-        if (orderDate.checkWeekEnd() == false) {
+        if (!orderDate.checkWeekEnd()) {
             return 0;
         }
         return menuChecker.getMenuChecker().get(MenuBoard.MAIN_COURSE) * 2023;
     }
 
     private Integer calculateStarDayDiscount(OrderDate orderDate) {
-        if (orderDate.checkStarDay() == false) {
+        if (!orderDate.checkStarDay()) {
             return 0;
         }
         return 1000;
@@ -56,6 +56,10 @@ public class EventData {
 
     private boolean checkChampagne(OrderAmount orderAmount) {
         return orderAmount.getOrderAmount() >= 120000;
+    }
+
+    public Integer getTotalDiscount() {
+        return totalDiscount;
     }
 
     @Override
