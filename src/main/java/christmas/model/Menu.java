@@ -1,5 +1,14 @@
 package christmas.model;
 
+import static christmas.constant.Format.CRLF;
+import static christmas.constant.Format.DELIMETERPEREACHMENU;
+import static christmas.constant.Format.DELIMETERPERMENUORDER;
+import static christmas.constant.Format.MENU_FORMAT;
+import static christmas.constant.Format.SPACE;
+import static christmas.constant.Numbers.MENUNAME;
+import static christmas.constant.Numbers.MENUNUMBERLIMIT;
+import static christmas.constant.Numbers.MENUPRICE;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +17,6 @@ import java.util.stream.Collectors;
 
 public class Menu {
     private final Map<String, Integer> menu;
-    private final String MENU_FORMAT = "^([가-힣]+-\\d+)(,([가-힣]+-\\d+))*";
 
     public Menu(final String menu) {
         validateMenuFormat(menu);
@@ -17,7 +25,7 @@ public class Menu {
     }
 
     private void validateMenuFormat(final String menu) {
-        if (!Pattern.matches(MENU_FORMAT, menu)) {
+        if (!Pattern.matches(MENU_FORMAT.getValue(), menu)) {
             throw new IllegalArgumentException();
         }
     }
@@ -40,11 +48,11 @@ public class Menu {
     }
 
     private boolean checkMenuNumberIsMoreThanLimit(Map<String, Integer> menu) {
-        return menu.values().stream().mapToInt(Integer::intValue).sum() > 20;
+        return menu.values().stream().mapToInt(Integer::intValue).sum() > MENUNUMBERLIMIT.getValue();
     }
 
     private boolean checkMenuNumberIsLessThanZero(Map<String, Integer> menu) {
-        return menu.values().stream().filter(number -> 0 >= number).count() > 0;
+        return menu.values().stream().anyMatch(number -> 0 >= number);
     }
 
     private Map<String, Integer> parseMenu(String menu) {
@@ -52,14 +60,14 @@ public class Menu {
     }
 
     private List<String> parseMenuByComma(String menu) {
-        return Arrays.stream(menu.split(","))
+        return Arrays.stream(menu.split(DELIMETERPERMENUORDER.getValue()))
                 .collect(Collectors.toList());
     }
 
     private Map<String, Integer> parseMenuByDash(List<String> menu) {
         return menu.stream()
-                .map(s -> s.split("-"))
-                .collect(Collectors.toMap(arr -> arr[0], arr -> Integer.parseInt(arr[1])));
+                .map(s -> s.split(DELIMETERPEREACHMENU.getValue()))
+                .collect(Collectors.toMap(arr -> arr[MENUNAME.getValue()], arr -> Integer.parseInt(arr[MENUPRICE.getValue()])));
     }
 
     public Map<String, Integer> getMenu() {
@@ -68,10 +76,10 @@ public class Menu {
 
     @Override
     public String toString() {
-        String menu = "";
-        for (String menuName : this.menu.keySet()) {
-            menu += menuName + " " + this.menu.get(menuName) + "개\n";
-        }
+        String menu = this.menu.entrySet()
+                .stream()
+                .map(entry -> entry.getKey() + SPACE.getValue() + entry.getValue() + "개")
+                .collect(Collectors.joining(CRLF.getValue()));
         return menu;
     }
 }
