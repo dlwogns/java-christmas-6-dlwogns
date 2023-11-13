@@ -23,7 +23,12 @@ public class OrderAmount {
         return menuPrice;
     }
 
-    public Integer getOrderAmount() {
+    public Integer getOrderAmount() { // for test
         return orderAmount;
+    }
+
+    @Override
+    public String toString() {
+        return orderAmount.toString() + "원";
     }
 }
