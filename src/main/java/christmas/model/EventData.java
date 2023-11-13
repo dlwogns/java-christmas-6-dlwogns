@@ -77,7 +77,7 @@ public class EventData {
         if (champagne) {
             return "<증정 메뉴>\n샴페인 1개\n";
         }
-        return "";
+        return "<증정 메뉴>\n없음\n";
     }
 
     private String toStringPromotion() {
