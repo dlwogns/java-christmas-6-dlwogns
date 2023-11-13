@@ -1,12 +1,12 @@
 package christmas.model;
 
-public class Discount {
+public class EventData {
     private Integer dDayDiscount;
     private Integer weekDayDiscount;
     private Integer weekEndDiscount;
     private Integer starDiscount;
     private Integer totalDiscount;
-    public Discount(MenuChecker menuChecker, OrderDate orderDate){
+    public EventData(MenuChecker menuChecker, OrderDate orderDate){
         dDayDiscount = calculatedDayDiscount(orderDate);
         weekDayDiscount = calculateWeekDayDiscount(menuChecker,orderDate);
         weekEndDiscount = calculateWeekEndDiscount(menuChecker,orderDate);
