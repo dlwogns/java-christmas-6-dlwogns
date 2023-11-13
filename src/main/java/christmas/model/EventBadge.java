@@ -4,6 +4,9 @@ import static christmas.constant.Badge.NONE;
 import static christmas.constant.Badge.SANTA;
 import static christmas.constant.Badge.STAR;
 import static christmas.constant.Badge.TREE;
+import static christmas.constant.Numbers.CHECKSANTA;
+import static christmas.constant.Numbers.CHECKSTAR;
+import static christmas.constant.Numbers.CHECKTREE;
 
 public class EventBadge {
     private String eventbadge;
@@ -12,11 +15,11 @@ public class EventBadge {
         eventbadge = checkEventBadge(totalDiscount);
     }
     private String checkEventBadge(Integer totalDiscount){
-        if(totalDiscount < 5000)
+        if(totalDiscount < CHECKSTAR.getValue())
             return NONE.getValue();
-        if(totalDiscount < 10000)
+        if(totalDiscount < CHECKTREE.getValue())
             return STAR.getValue();
-        if(totalDiscount < 20000)
+        if(totalDiscount < CHECKSANTA.getValue())
             return TREE.getValue();
         return SANTA.getValue();
     }
