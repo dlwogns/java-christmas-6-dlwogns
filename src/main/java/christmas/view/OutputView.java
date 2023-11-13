@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.model.EventData;
 import christmas.model.Menu;
 import christmas.model.OrderAmount;
 
@@ -22,6 +23,8 @@ public class OutputView {
     public void printOrderAmount(OrderAmount orderAmount){
         System.out.println("<할인 전 총주문 금액>");
         System.out.println(orderAmount.toString());
-
+    }
+    public void printEventData(EventData eventData){
+        System.out.println(eventData.toString());
     }
 }
