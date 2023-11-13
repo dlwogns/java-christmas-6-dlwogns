@@ -7,13 +7,15 @@ public class EventData {
     private final Integer starDiscount;
     private final Integer totalDiscount;
     private final boolean champagne;
+    protected final Integer orderAmount;
     public EventData(MenuChecker menuChecker, OrderDate orderDate, OrderAmount orderAmount){
         dDayDiscount = calculatedDayDiscount(orderDate);
         weekDayDiscount = calculateWeekDayDiscount(menuChecker,orderDate);
         weekEndDiscount = calculateWeekEndDiscount(menuChecker,orderDate);
         starDiscount = calculateStarDayDiscount(orderDate);
-        totalDiscount = calculateTotalDiscount();
         champagne = checkChampagne(orderAmount);
+        totalDiscount = calculateTotalDiscount();
+        this.orderAmount = orderAmount.getOrderAmount();
     }
     private Integer calculatedDayDiscount(OrderDate orderDate){
         if(orderDate.getOrderDate() > 25)
@@ -36,6 +38,8 @@ public class EventData {
         return 1000;
     }
     private Integer calculateTotalDiscount(){
+        if(champagne)
+            return dDayDiscount+weekDayDiscount+weekEndDiscount+starDiscount+25000;
         return dDayDiscount+weekDayDiscount+weekEndDiscount+starDiscount;
     }
     private boolean checkChampagne(OrderAmount orderAmount){
@@ -45,7 +49,17 @@ public class EventData {
     @Override
     public String toString() {
         String discount = toStringifChampagne();
-        discount += "<혜택 내역>\n";
+        discount += toStringPromotion();
+        discount += toStringTotal();
+        return discount;
+    }
+    private String toStringifChampagne(){
+        if(champagne)
+            return "<증정 메뉴>\n샴페인 1개\n";
+        return "";
+    }
+    private String toStringPromotion(){
+        String discount = "<혜택 내역>\n";
         if(dDayDiscount != 0)
             discount += "크리스마스 디데이 할인: -" + dDayDiscount + '\n';
         if(weekDayDiscount != 0)
@@ -56,9 +70,11 @@ public class EventData {
             discount += "증정 이벤트: -" + "25000" + '\n';
         return discount;
     }
-    private String toStringifChampagne(){
-        if(champagne)
-            return "<증정 메뉴>\n샴페인 1개\n";
-        return "";
+    private String toStringTotal(){
+        String total = "<총혜택 금액>\n-";
+        total += totalDiscount.toString() + "원\n";
+        total += "<할인 후 예상 결제 금액>\n";
+        total += orderAmount - totalDiscount + "원";
+        return total;
     }
 }
