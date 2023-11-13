@@ -1,5 +1,16 @@
 package christmas.model;
 
+import static christmas.constant.Format.CRLF;
+import static christmas.constant.Format.DECIMALFORMAT;
+import static christmas.constant.Numbers.CHAMPAGNEPRICE;
+import static christmas.constant.Numbers.CHECKCHAMPAGNE;
+import static christmas.constant.Numbers.CHRISTMAS;
+import static christmas.constant.Numbers.DISCOUNTPERDAY;
+import static christmas.constant.Numbers.DISCOUNTPERMENU;
+import static christmas.constant.Numbers.INITIALDDAYDISCOUNT;
+import static christmas.constant.Numbers.INITIALDISCOUNT;
+import static christmas.constant.Numbers.STARDAYDISCOUNT;
+import static christmas.constant.Strings.MONEYUNIT;
 import static christmas.model.Discount.DDAYDISCOUNT;
 import static christmas.model.Discount.STARDISCOUNT;
 import static christmas.model.Discount.TOTALDISCOUNT;
@@ -13,17 +24,18 @@ public class EventData {
     private final EnumMap<Discount, Integer> eventDiscount = new EnumMap<>(Discount.class);
     private final boolean champagne;
     protected final Integer orderAmount;
-    private final DecimalFormat decimalFormat = new DecimalFormat("#,###");
+    private final DecimalFormat decimalFormat = new DecimalFormat(DECIMALFORMAT.getValue());
 
     public EventData(MenuChecker menuChecker, OrderDate orderDate, OrderAmount orderAmount) {
-        for(Discount discount : Discount.values()){
-            eventDiscount.put(discount, 0);
+        for (Discount discount : Discount.values()) {
+            eventDiscount.put(discount, INITIALDISCOUNT.getValue());
         }
         champagne = checkChampagne(orderAmount);
-        calculateDiscount(orderDate,menuChecker);
+        calculateDiscount(orderDate, menuChecker);
         this.orderAmount = orderAmount.getOrderAmount();
     }
-    private void calculateDiscount(OrderDate orderDate, MenuChecker menuChecker){
+
+    private void calculateDiscount(OrderDate orderDate, MenuChecker menuChecker) {
         calculatedDayDiscount(orderDate);
         calculateWeekDayDiscount(menuChecker, orderDate);
         calculateWeekEndDiscount(menuChecker, orderDate);
@@ -32,31 +44,34 @@ public class EventData {
     }
 
     private void calculatedDayDiscount(OrderDate orderDate) {
-        if (orderDate.getOrderDate() > 25) {
+        if (orderDate.getOrderDate() > CHRISTMAS.getValue()) {
             return;
         }
-        eventDiscount.replace(DDAYDISCOUNT, 1000 + 100 * (orderDate.getOrderDate() - 1));
+        eventDiscount.replace(DDAYDISCOUNT,
+                INITIALDDAYDISCOUNT.getValue() + DISCOUNTPERDAY.getValue() * (orderDate.getOrderDate() - 1));
     }
 
     private void calculateWeekDayDiscount(MenuChecker menuChecker, OrderDate orderDate) {
         if (orderDate.checkWeekEnd()) {
             return;
         }
-        eventDiscount.replace(WEEKDAYDISCOUNT, menuChecker.getMenuChecker().get(MenuBoard.DESSERT) * 2023);
+        eventDiscount.replace(WEEKDAYDISCOUNT,
+                menuChecker.getMenuChecker().get(MenuBoard.DESSERT) * DISCOUNTPERMENU.getValue());
     }
 
     private void calculateWeekEndDiscount(MenuChecker menuChecker, OrderDate orderDate) {
         if (!orderDate.checkWeekEnd()) {
             return;
         }
-        eventDiscount.replace(WEEKENDDISCOUNT, menuChecker.getMenuChecker().get(MenuBoard.MAIN_COURSE) * 2023);
+        eventDiscount.replace(WEEKENDDISCOUNT,
+                menuChecker.getMenuChecker().get(MenuBoard.MAIN_COURSE) * DISCOUNTPERMENU.getValue());
     }
 
     private void calculateStarDayDiscount(OrderDate orderDate) {
         if (!orderDate.checkStarDay()) {
             return;
         }
-        eventDiscount.replace(STARDISCOUNT, 1000);
+        eventDiscount.replace(STARDISCOUNT, STARDAYDISCOUNT.getValue());
     }
 
     private void calculateTotalDiscount() {
@@ -64,12 +79,12 @@ public class EventData {
                 .stream().mapToInt(Integer::intValue).sum();
         eventDiscount.replace(TOTALDISCOUNT, totalDiscount);
         if (champagne) {
-            eventDiscount.replace(TOTALDISCOUNT, totalDiscount+25000);
+            eventDiscount.replace(TOTALDISCOUNT, totalDiscount + CHAMPAGNEPRICE.getValue());
         }
     }
 
     private boolean checkChampagne(OrderAmount orderAmount) {
-        return orderAmount.getOrderAmount() >= 120000;
+        return orderAmount.getOrderAmount() >= CHECKCHAMPAGNE.getValue();
     }
 
     public Integer getTotalDiscount() {
@@ -93,22 +108,26 @@ public class EventData {
 
     private String toStringPromotion() {
         String discount = "<혜택 내역>\n";
-        if (eventDiscount.get(DDAYDISCOUNT) != 0)
-            discount += "크리스마스 디데이 할인: -" + decimalFormat.format(eventDiscount.get(DDAYDISCOUNT)) + '\n';
-        if (eventDiscount.get(WEEKDAYDISCOUNT) != 0)
-            discount += "평일 할인: -" + decimalFormat.format(eventDiscount.get(WEEKDAYDISCOUNT)) + '\n';
-        if (eventDiscount.get(WEEKENDDISCOUNT) != 0)
-            discount += "주말 할인: -" + decimalFormat.format(eventDiscount.get(WEEKENDDISCOUNT)) + '\n';
-        if (champagne)
-            discount += "증정 이벤트: -" + "25,000" + '\n';
+        if (eventDiscount.get(DDAYDISCOUNT) != INITIALDISCOUNT.getValue()) {
+            discount += "크리스마스 디데이 할인: -" + decimalFormat.format(eventDiscount.get(DDAYDISCOUNT)) + CRLF.getValue();
+        }
+        if (eventDiscount.get(WEEKDAYDISCOUNT) != INITIALDISCOUNT.getValue()) {
+            discount += "평일 할인: -" + decimalFormat.format(eventDiscount.get(WEEKDAYDISCOUNT)) + CRLF.getValue();
+        }
+        if (eventDiscount.get(WEEKENDDISCOUNT) != INITIALDISCOUNT.getValue()) {
+            discount += "주말 할인: -" + decimalFormat.format(eventDiscount.get(WEEKENDDISCOUNT)) + CRLF.getValue();
+        }
+        if (champagne) {
+            discount += "증정 이벤트: -" + CHAMPAGNEPRICE.getValue() + CRLF.getValue();
+        }
         return discount;
     }
 
     private String toStringTotal() {
         String total = "<총혜택 금액>\n-";
-        total += decimalFormat.format(eventDiscount.get(TOTALDISCOUNT))+ "원\n";
+        total += decimalFormat.format(eventDiscount.get(TOTALDISCOUNT)) + MONEYUNIT.getValue() + CRLF.getValue();
         total += "<할인 후 예상 결제 금액>\n";
-        total += decimalFormat.format(orderAmount - eventDiscount.get(TOTALDISCOUNT)) + "원";
+        total += decimalFormat.format(orderAmount - eventDiscount.get(TOTALDISCOUNT)) + MONEYUNIT.getValue();
         return total;
     }
 }
