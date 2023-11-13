@@ -1,5 +1,7 @@
 package christmas.model;
 
+import java.text.DecimalFormat;
+
 public class EventData {
     private final Integer dDayDiscount;
     private final Integer weekDayDiscount;
@@ -8,6 +10,7 @@ public class EventData {
     private final Integer totalDiscount;
     private final boolean champagne;
     protected final Integer orderAmount;
+    private final DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     public EventData(MenuChecker menuChecker, OrderDate orderDate, OrderAmount orderAmount) {
         dDayDiscount = calculatedDayDiscount(orderDate);
@@ -80,25 +83,25 @@ public class EventData {
     private String toStringPromotion() {
         String discount = "<혜택 내역>\n";
         if (dDayDiscount != 0) {
-            discount += "크리스마스 디데이 할인: -" + dDayDiscount + '\n';
+            discount += "크리스마스 디데이 할인: -" + decimalFormat.format(dDayDiscount) + '\n';
         }
         if (weekDayDiscount != 0) {
-            discount += "평일 할인: -" + weekDayDiscount + '\n';
+            discount += "평일 할인: -" + decimalFormat.format(weekDayDiscount) + '\n';
         }
         if (weekEndDiscount != 0) {
-            discount += "주말 할인: -" + weekEndDiscount + '\n';
+            discount += "주말 할인: -" + decimalFormat.format(weekEndDiscount) + '\n';
         }
         if (champagne) {
-            discount += "증정 이벤트: -" + "25000" + '\n';
+            discount += "증정 이벤트: -" + "25,000" + '\n';
         }
         return discount;
     }
 
     private String toStringTotal() {
         String total = "<총혜택 금액>\n-";
-        total += totalDiscount.toString() + "원\n";
+        total += decimalFormat.format(totalDiscount)+ "원\n";
         total += "<할인 후 예상 결제 금액>\n";
-        total += orderAmount - totalDiscount + "원";
+        total += decimalFormat.format(orderAmount - totalDiscount) + "원";
         return total;
     }
 }

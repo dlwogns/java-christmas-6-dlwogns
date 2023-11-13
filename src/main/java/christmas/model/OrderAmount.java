@@ -1,5 +1,7 @@
 package christmas.model;
 
+import java.text.DecimalFormat;
+
 public class OrderAmount {
     private final Integer orderAmount;
 
@@ -31,6 +33,7 @@ public class OrderAmount {
 
     @Override
     public String toString() {
-        return orderAmount.toString() + "원";
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(orderAmount) + "원";
     }
 }
