@@ -17,7 +17,7 @@ public class MenuChecker {
             if(menuBoard == null){
                 throw new IllegalArgumentException();
             }
-            menuChecker.replace(menuBoard, menuChecker.get(menuBoard) + 1);
+            menuChecker.replace(menuBoard, menuChecker.get(menuBoard) + menu.get(menuName));
         }
     }
     private MenuBoard checkMenuName(String menuName){
@@ -35,5 +35,9 @@ public class MenuChecker {
         if (mainCount == 0 && appetizerCount == 0 && dessertCount == 0){
             throw new IllegalArgumentException();
         }
+    }
+
+    public EnumMap<MenuBoard, Integer> getMenuChecker() {
+        return menuChecker;
     }
 }

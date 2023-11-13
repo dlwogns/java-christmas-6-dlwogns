@@ -1,9 +1,7 @@
 package christmas.view;
 
-import christmas.model.Discount;
 import christmas.model.Menu;
 import christmas.model.OrderAmount;
-import org.mockito.internal.matchers.Or;
 
 public class OutputView {
     private static OutputView instance;
