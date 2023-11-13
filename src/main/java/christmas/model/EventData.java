@@ -19,6 +19,7 @@ import static christmas.model.Discount.WEEKENDDISCOUNT;
 
 import java.text.DecimalFormat;
 import java.util.EnumMap;
+import java.util.Objects;
 
 public class EventData {
     private final EnumMap<Discount, Integer> eventDiscount = new EnumMap<>(Discount.class);
@@ -108,13 +109,13 @@ public class EventData {
 
     private String toStringPromotion() {
         String discount = "<혜택 내역>\n";
-        if (eventDiscount.get(DDAYDISCOUNT) != INITIALDISCOUNT.getValue()) {
+        if (!Objects.equals(eventDiscount.get(DDAYDISCOUNT), INITIALDISCOUNT.getValue())) {
             discount += "크리스마스 디데이 할인: -" + decimalFormat.format(eventDiscount.get(DDAYDISCOUNT)) + CRLF.getValue();
         }
-        if (eventDiscount.get(WEEKDAYDISCOUNT) != INITIALDISCOUNT.getValue()) {
+        if (!Objects.equals(eventDiscount.get(WEEKDAYDISCOUNT), INITIALDISCOUNT.getValue())) {
             discount += "평일 할인: -" + decimalFormat.format(eventDiscount.get(WEEKDAYDISCOUNT)) + CRLF.getValue();
         }
-        if (eventDiscount.get(WEEKENDDISCOUNT) != INITIALDISCOUNT.getValue()) {
+        if (!Objects.equals(eventDiscount.get(WEEKENDDISCOUNT), INITIALDISCOUNT.getValue())) {
             discount += "주말 할인: -" + decimalFormat.format(eventDiscount.get(WEEKENDDISCOUNT)) + CRLF.getValue();
         }
         if (champagne) {
