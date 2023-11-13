@@ -1,10 +1,18 @@
 package christmas.model;
 
+import static christmas.constant.Format.REGEX_DIGIT;
+import static christmas.constant.Numbers.CHECKFRIDAY;
+import static christmas.constant.Numbers.CHECKSATURDAY;
+import static christmas.constant.Numbers.CHECKSTARDAY;
+import static christmas.constant.Numbers.CHRISTMAS;
+import static christmas.constant.Numbers.DAYSPERWEEK;
+import static christmas.constant.Numbers.ENDOFDATE;
+import static christmas.constant.Numbers.STARTOFDATE;
+
 import java.util.regex.Pattern;
 
 public class OrderDate {
     private final Integer orderDate;
-    private final String REGEX_DIGIT = "^[\\d]*$";
 
     public OrderDate(String orderDate) {
         validate(orderDate);
@@ -17,30 +25,25 @@ public class OrderDate {
     }
 
     private void validateOrderdateIsNumber(String orderDate) {
-        if (!Pattern.matches(REGEX_DIGIT, orderDate)) {
+        if (!Pattern.matches(REGEX_DIGIT.getValue(), orderDate)) {
             throw new IllegalArgumentException();
         }
     }
 
     private void validateOrderdateRange(String orderDate) {
         int date = Integer.parseInt(orderDate);
-        if (date < 1 || date > 31) {
+        if (date < STARTOFDATE.getValue() || date > ENDOFDATE.getValue()) {
             throw new IllegalArgumentException();
         }
     }
 
     public boolean checkWeekEnd() {
-        if (orderDate % 7 == 1 || orderDate % 7 == 2) {
-            return true;
-        }
-        return false;
+        return orderDate % DAYSPERWEEK.getValue() == CHECKFRIDAY.getValue()
+                || orderDate % DAYSPERWEEK.getValue() == CHECKSATURDAY.getValue();
     }
 
     public boolean checkStarDay() {
-        if (orderDate % 7 == 3 || orderDate == 25) {
-            return true;
-        }
-        return false;
+        return orderDate % DAYSPERWEEK.getValue() == CHECKSTARDAY.getValue() || orderDate.equals(CHRISTMAS.getValue());
     }
 
     public Integer getOrderDate() {
