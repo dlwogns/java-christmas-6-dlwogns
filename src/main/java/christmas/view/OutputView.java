@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.model.EventBadge;
 import christmas.model.EventData;
 import christmas.model.Menu;
 import christmas.model.OrderAmount;
@@ -31,5 +32,10 @@ public class OutputView {
 
     public void printEventData(EventData eventData) {
         System.out.println(eventData.toString());
+    }
+    public void printEventBadge(EventBadge eventBadge){
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(eventBadge.toString());
+
     }
 }
