@@ -1,5 +1,8 @@
 package christmas.model;
 
+import static christmas.constant.Format.DECIMALFORMAT;
+import static christmas.constant.PrintStrings.MONEYUNIT;
+
 import java.text.DecimalFormat;
 
 public class OrderAmount {
@@ -20,7 +23,7 @@ public class OrderAmount {
     private Integer checkMenuBoard(String menuName) {
         Integer menuPrice = 0;
         for (MenuBoard menuBoard : MenuBoard.values()) {
-            if (menuBoard.getValue().keySet().contains(menuName)) {
+            if (menuBoard.getValue().containsKey(menuName)) {
                 menuPrice = menuBoard.getValue().get(menuName);
             }
         }
@@ -33,7 +36,7 @@ public class OrderAmount {
 
     @Override
     public String toString() {
-        DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        return decimalFormat.format(orderAmount) + "원";
+        DecimalFormat decimalFormat = new DecimalFormat(DECIMALFORMAT.getValue());
+        return decimalFormat.format(orderAmount) + MONEYUNIT.getValue();
     }
 }
