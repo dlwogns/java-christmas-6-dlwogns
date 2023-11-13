@@ -6,17 +6,19 @@ public class OrderAmount {
     public OrderAmount(Menu menu) {
         orderAmount = calculateOrderAmount(menu);
     }
-    private Integer calculateOrderAmount(Menu menu){
-        Integer orderAmount=0;
-        for(String menuName : menu.getMenu().keySet()){
+
+    private Integer calculateOrderAmount(Menu menu) {
+        Integer orderAmount = 0;
+        for (String menuName : menu.getMenu().keySet()) {
             orderAmount += checkMenuBoard(menuName) * menu.getMenu().get(menuName);
         }
         return orderAmount;
     }
-    private Integer checkMenuBoard(String menuName){
-        Integer menuPrice=0;
-        for(MenuBoard menuBoard : MenuBoard.values()){
-            if(menuBoard.getValue().keySet().contains(menuName)){
+
+    private Integer checkMenuBoard(String menuName) {
+        Integer menuPrice = 0;
+        for (MenuBoard menuBoard : MenuBoard.values()) {
+            if (menuBoard.getValue().keySet().contains(menuName)) {
                 menuPrice = menuBoard.getValue().get(menuName);
             }
         }
