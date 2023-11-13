@@ -1,5 +1,7 @@
 package christmas.model;
 
+import static christmas.constant.Numbers.INITIALMENUCOUNT;
+
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -8,7 +10,7 @@ public class MenuChecker {
 
     public MenuChecker() {
         for (MenuBoard menuBoard : MenuBoard.values()) {
-            menuChecker.put(menuBoard, 0);
+            menuChecker.put(menuBoard, INITIALMENUCOUNT.getValue());
         }
     }
 
@@ -35,7 +37,9 @@ public class MenuChecker {
         int mainCount = menuChecker.get(MenuBoard.MAIN_COURSE);
         int appetizerCount = menuChecker.get(MenuBoard.APPETIZER);
         int dessertCount = menuChecker.get(MenuBoard.DESSERT);
-        if (mainCount == 0 && appetizerCount == 0 && dessertCount == 0) {
+        if (mainCount == INITIALMENUCOUNT.getValue()
+                && appetizerCount == INITIALMENUCOUNT.getValue()
+                && dessertCount == INITIALMENUCOUNT.getValue()) {
             throw new IllegalArgumentException();
         }
     }
