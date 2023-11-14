@@ -1,7 +1,7 @@
 package christmas.constant;
 
 public enum Strings {
-    MONEYUNIT("원");
+    MONEY_UNIT("원");
 
     private final String value;
 

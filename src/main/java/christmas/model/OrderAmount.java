@@ -1,7 +1,7 @@
 package christmas.model;
 
-import static christmas.constant.Format.DECIMALFORMAT;
-import static christmas.constant.Strings.MONEYUNIT;
+import static christmas.constant.Format.DECIMAL_FORMAT;
+import static christmas.constant.Strings.MONEY_UNIT;
 
 import java.text.DecimalFormat;
 
@@ -36,7 +36,7 @@ public class OrderAmount {
 
     @Override
     public String toString() {
-        DecimalFormat decimalFormat = new DecimalFormat(DECIMALFORMAT.getValue());
-        return decimalFormat.format(orderAmount) + MONEYUNIT.getValue();
+        DecimalFormat decimalFormat = new DecimalFormat(DECIMAL_FORMAT.getValue());
+        return decimalFormat.format(orderAmount) + MONEY_UNIT.getValue();
     }
 }

@@ -1,9 +1,9 @@
 package christmas.model;
 
-import static christmas.constant.ErrorMessage.ERRORHEADER;
-import static christmas.constant.ErrorMessage.ERRORINMENU;
-import static christmas.constant.ErrorMessage.ERRORINMENUONLYBEVERAGE;
-import static christmas.constant.Numbers.INITIALMENUCOUNT;
+import static christmas.constant.ErrorMessage.ERROR_HEADER;
+import static christmas.constant.ErrorMessage.ERROR_IN_MENU;
+import static christmas.constant.ErrorMessage.ERROR_IN_MENU_ONLY_BEVERAGE;
+import static christmas.constant.Numbers.INITIAL_MENU_COUNT;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ public class MenuChecker {
 
     public MenuChecker() {
         for (MenuBoard menuBoard : MenuBoard.values()) {
-            menuChecker.put(menuBoard, INITIALMENUCOUNT.getValue());
+            menuChecker.put(menuBoard, INITIAL_MENU_COUNT.getValue());
         }
     }
 
@@ -21,7 +21,7 @@ public class MenuChecker {
         for (String menuName : menu.keySet()) {
             MenuBoard menuBoard = checkMenuName(menuName);
             if (menuBoard == null) {
-                throw new IllegalArgumentException(ERRORHEADER.getValue()+ ERRORINMENU.getValue());
+                throw new IllegalArgumentException(ERROR_HEADER.getValue()+ ERROR_IN_MENU.getValue());
             }
             menuChecker.replace(menuBoard, menuChecker.get(menuBoard) + menu.get(menuName));
         }
@@ -40,10 +40,10 @@ public class MenuChecker {
         int mainCount = menuChecker.get(MenuBoard.MAIN_COURSE);
         int appetizerCount = menuChecker.get(MenuBoard.APPETIZER);
         int dessertCount = menuChecker.get(MenuBoard.DESSERT);
-        if (mainCount == INITIALMENUCOUNT.getValue()
-                && appetizerCount == INITIALMENUCOUNT.getValue()
-                && dessertCount == INITIALMENUCOUNT.getValue()) {
-            throw new IllegalArgumentException(ERRORHEADER.getValue() + ERRORINMENUONLYBEVERAGE.getValue());
+        if (mainCount == INITIAL_MENU_COUNT.getValue()
+                && appetizerCount == INITIAL_MENU_COUNT.getValue()
+                && dessertCount == INITIAL_MENU_COUNT.getValue()) {
+            throw new IllegalArgumentException(ERROR_HEADER.getValue() + ERROR_IN_MENU_ONLY_BEVERAGE.getValue());
         }
     }
 

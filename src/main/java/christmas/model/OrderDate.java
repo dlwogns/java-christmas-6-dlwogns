@@ -1,15 +1,15 @@
 package christmas.model;
 
-import static christmas.constant.ErrorMessage.ERRORHEADER;
-import static christmas.constant.ErrorMessage.ERRORINDATE;
+import static christmas.constant.ErrorMessage.ERROR_HEADER;
+import static christmas.constant.ErrorMessage.ERROR_IN_DATE;
 import static christmas.constant.Format.REGEX_DIGIT;
-import static christmas.constant.Numbers.CHECKFRIDAY;
-import static christmas.constant.Numbers.CHECKSATURDAY;
-import static christmas.constant.Numbers.CHECKSTARDAY;
+import static christmas.constant.Numbers.CHECK_FRIDAY;
+import static christmas.constant.Numbers.CHECK_SATURDAY;
+import static christmas.constant.Numbers.CHECK_STARDAY;
 import static christmas.constant.Numbers.CHRISTMAS;
-import static christmas.constant.Numbers.DAYSPERWEEK;
-import static christmas.constant.Numbers.ENDOFDATE;
-import static christmas.constant.Numbers.STARTOFDATE;
+import static christmas.constant.Numbers.DAYS_PER_WEEK;
+import static christmas.constant.Numbers.END_OF_DATE;
+import static christmas.constant.Numbers.START_OF_DATE;
 
 import java.util.regex.Pattern;
 
@@ -28,24 +28,24 @@ public class OrderDate {
 
     private void validateOrderdateIsNumber(String orderDate) {
         if (!Pattern.matches(REGEX_DIGIT.getValue(), orderDate)) {
-            throw new IllegalArgumentException(ERRORHEADER.getValue() + ERRORINDATE.getValue());
+            throw new IllegalArgumentException(ERROR_HEADER.getValue() + ERROR_IN_DATE.getValue());
         }
     }
 
     private void validateOrderdateRange(String orderDate) {
         int date = Integer.parseInt(orderDate);
-        if (date < STARTOFDATE.getValue() || date > ENDOFDATE.getValue()) {
-            throw new IllegalArgumentException(ERRORHEADER.getValue() + ERRORINDATE.getValue());
+        if (date < START_OF_DATE.getValue() || date > END_OF_DATE.getValue()) {
+            throw new IllegalArgumentException(ERROR_HEADER.getValue() + ERROR_IN_DATE.getValue());
         }
     }
 
     public boolean checkWeekEnd() {
-        return orderDate % DAYSPERWEEK.getValue() == CHECKFRIDAY.getValue()
-                || orderDate % DAYSPERWEEK.getValue() == CHECKSATURDAY.getValue();
+        return orderDate % DAYS_PER_WEEK.getValue() == CHECK_FRIDAY.getValue()
+                || orderDate % DAYS_PER_WEEK.getValue() == CHECK_SATURDAY.getValue();
     }
 
     public boolean checkStarDay() {
-        return orderDate % DAYSPERWEEK.getValue() == CHECKSTARDAY.getValue() || orderDate.equals(CHRISTMAS.getValue());
+        return orderDate % DAYS_PER_WEEK.getValue() == CHECK_STARDAY.getValue() || orderDate.equals(CHRISTMAS.getValue());
     }
 
     public Integer getOrderDate() {

@@ -1,16 +1,16 @@
 package christmas.model;
 
-import static christmas.constant.ErrorMessage.ERRORHEADER;
-import static christmas.constant.ErrorMessage.ERRORINMENU;
-import static christmas.constant.ErrorMessage.ERRORINMENUCOUNT;
+import static christmas.constant.ErrorMessage.ERROR_HEADER;
+import static christmas.constant.ErrorMessage.ERROR_IN_MENU;
+import static christmas.constant.ErrorMessage.ERROR_IN_MENU_COUNT;
 import static christmas.constant.Format.CRLF;
-import static christmas.constant.Format.DELIMETERPEREACHMENU;
-import static christmas.constant.Format.DELIMETERPERMENUORDER;
+import static christmas.constant.Format.DELIMETER_PER_EACH_MENU;
+import static christmas.constant.Format.DELIMETER_PER_MENUORDER;
 import static christmas.constant.Format.MENU_FORMAT;
 import static christmas.constant.Format.SPACE;
-import static christmas.constant.Numbers.MENUNAME;
-import static christmas.constant.Numbers.MENUNUMBERLIMIT;
-import static christmas.constant.Numbers.MENUPRICE;
+import static christmas.constant.Numbers.MENU_NAME;
+import static christmas.constant.Numbers.MENU_NUMBER_LIMIT;
+import static christmas.constant.Numbers.MENU_PRICE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,16 +29,16 @@ public class Menu {
 
     private void validateMenuFormat(final String menu) {
         if (!Pattern.matches(MENU_FORMAT.getValue(), menu)) {
-            throw new IllegalArgumentException(ERRORHEADER.getValue() + ERRORINMENU.getValue());
+            throw new IllegalArgumentException(ERROR_HEADER.getValue() + ERROR_IN_MENU.getValue());
         }
     }
 
     private void validateMenuNumbers(Map<String, Integer> menu) {
         if (checkMenuNumberIsLessThanZero(menu)) {
-            throw new IllegalArgumentException(ERRORHEADER.getValue() + ERRORINMENUCOUNT.getValue());
+            throw new IllegalArgumentException(ERROR_HEADER.getValue() + ERROR_IN_MENU_COUNT.getValue());
         }
         if (checkMenuNumberIsMoreThanLimit(menu)) {
-            throw new IllegalArgumentException(ERRORHEADER.getValue() + ERRORINMENU.getValue());
+            throw new IllegalArgumentException(ERROR_HEADER.getValue() + ERROR_IN_MENU.getValue());
         }
     }
 
@@ -46,12 +46,12 @@ public class Menu {
         try {
             return parseMenu(menu);
         } catch (IllegalStateException e) {
-            throw new IllegalStateException(ERRORHEADER.getValue() + ERRORINMENU.getValue());
+            throw new IllegalStateException(ERROR_HEADER.getValue() + ERROR_IN_MENU.getValue());
         }
     }
 
     private boolean checkMenuNumberIsMoreThanLimit(Map<String, Integer> menu) {
-        return menu.values().stream().mapToInt(Integer::intValue).sum() > MENUNUMBERLIMIT.getValue();
+        return menu.values().stream().mapToInt(Integer::intValue).sum() > MENU_NUMBER_LIMIT.getValue();
     }
 
     private boolean checkMenuNumberIsLessThanZero(Map<String, Integer> menu) {
@@ -63,15 +63,15 @@ public class Menu {
     }
 
     private List<String> parseMenuByComma(String menu) {
-        return Arrays.stream(menu.split(DELIMETERPERMENUORDER.getValue()))
+        return Arrays.stream(menu.split(DELIMETER_PER_MENUORDER.getValue()))
                 .collect(Collectors.toList());
     }
 
     private Map<String, Integer> parseMenuByDash(List<String> menu) {
         return menu.stream()
-                .map(s -> s.split(DELIMETERPEREACHMENU.getValue()))
-                .collect(Collectors.toMap(arr -> arr[MENUNAME.getValue()],
-                        arr -> Integer.parseInt(arr[MENUPRICE.getValue()])));
+                .map(s -> s.split(DELIMETER_PER_EACH_MENU.getValue()))
+                .collect(Collectors.toMap(arr -> arr[MENU_NAME.getValue()],
+                        arr -> Integer.parseInt(arr[MENU_PRICE.getValue()])));
     }
 
     public Map<String, Integer> getMenu() {
