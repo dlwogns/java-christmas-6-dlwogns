@@ -35,18 +35,19 @@ public class PromotionController {
     }
 
     private Menu getMenu() {
-        MenuChecker menuChecker = new MenuChecker();
-        this.menuChecker = menuChecker;
         try {
             Menu menu = new Menu(inputView.readMenu());
-            menuChecker.checkMenu(menu.getMenu());
-            menuChecker.checkOnlyBeverage();
+            checkMenu(menu);
             outputView.printMenu(menu);
             return menu;
         } catch (IllegalArgumentException | IllegalStateException e) {
             outputView.printException(e);
             return getMenu();
         }
+    }
+    private void checkMenu(Menu menu){
+        MenuChecker menuChecker =  new MenuChecker(menu);
+        this.menuChecker = menuChecker;
     }
 
     private OrderAmount getOrderAmount(Menu menu) {

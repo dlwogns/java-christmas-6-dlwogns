@@ -11,10 +11,12 @@ import java.util.Map;
 public class MenuChecker {
     private final EnumMap<MenuBoard, Integer> menuChecker = new EnumMap<>(MenuBoard.class);
 
-    public MenuChecker() {
+    public MenuChecker(Menu menu) throws IllegalArgumentException{
         for (MenuBoard menuBoard : MenuBoard.values()) {
             menuChecker.put(menuBoard, INITIAL_MENU_COUNT.getValue());
         }
+        checkMenu(menu.getMenu());
+        checkOnlyBeverage();
     }
 
     public void checkMenu(Map<String, Integer> menu) throws IllegalArgumentException {
