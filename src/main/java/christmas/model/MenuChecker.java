@@ -19,7 +19,7 @@ public class MenuChecker {
         checkOnlyBeverage();
     }
 
-    public void checkMenu(Map<String, Integer> menu) throws IllegalArgumentException {
+    private void checkMenu(Map<String, Integer> menu) throws IllegalArgumentException {
         for (String menuName : menu.keySet()) {
             MenuBoard menuBoard = checkMenuName(menuName);
             if (menuBoard == null) {
@@ -38,16 +38,15 @@ public class MenuChecker {
         return null;
     }
 
-    public void checkOnlyBeverage() {
-        int mainCount = menuChecker.get(MenuBoard.MAIN_COURSE);
-        int appetizerCount = menuChecker.get(MenuBoard.APPETIZER);
-        int dessertCount = menuChecker.get(MenuBoard.DESSERT);
-        if (mainCount == INITIAL_MENU_COUNT.getValue()
-                && appetizerCount == INITIAL_MENU_COUNT.getValue()
-                && dessertCount == INITIAL_MENU_COUNT.getValue()) {
+    private void checkOnlyBeverage() throws IllegalArgumentException{
+        if(checkMenuCount(MenuBoard.MAIN_COURSE) && checkMenuCount(MenuBoard.DESSERT) && checkMenuCount(MenuBoard.APPETIZER)){
             throw new IllegalArgumentException(ERROR_HEADER.getValue() + ERROR_IN_MENU_ONLY_BEVERAGE.getValue());
         }
     }
+    private boolean checkMenuCount(MenuBoard menuType){
+        return menuChecker.get(menuType).equals(INITIAL_MENU_COUNT.getValue());
+    }
+
 
     public EnumMap<MenuBoard, Integer> getMenuChecker() {
         return menuChecker;
