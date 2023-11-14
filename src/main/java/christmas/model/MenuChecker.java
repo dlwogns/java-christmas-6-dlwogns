@@ -1,5 +1,8 @@
 package christmas.model;
 
+import static christmas.constant.ErrorMessage.ERRORHEADER;
+import static christmas.constant.ErrorMessage.ERRORINMENU;
+import static christmas.constant.ErrorMessage.ERRORINMENUONLYBEVERAGE;
 import static christmas.constant.Numbers.INITIALMENUCOUNT;
 
 import java.util.EnumMap;
@@ -18,7 +21,7 @@ public class MenuChecker {
         for (String menuName : menu.keySet()) {
             MenuBoard menuBoard = checkMenuName(menuName);
             if (menuBoard == null) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException(ERRORHEADER.getValue()+ ERRORINMENU.getValue());
             }
             menuChecker.replace(menuBoard, menuChecker.get(menuBoard) + menu.get(menuName));
         }
@@ -26,7 +29,7 @@ public class MenuChecker {
 
     private MenuBoard checkMenuName(String menuName) {
         for (MenuBoard menuBoard : MenuBoard.values()) {
-            if (menuBoard.getValue().keySet().contains(menuName)) {
+            if (menuBoard.getValue().containsKey(menuName)) {
                 return menuBoard;
             }
         }
@@ -40,7 +43,7 @@ public class MenuChecker {
         if (mainCount == INITIALMENUCOUNT.getValue()
                 && appetizerCount == INITIALMENUCOUNT.getValue()
                 && dessertCount == INITIALMENUCOUNT.getValue()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERRORHEADER.getValue() + ERRORINMENUONLYBEVERAGE.getValue());
         }
     }
 

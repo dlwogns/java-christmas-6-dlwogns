@@ -1,5 +1,8 @@
 package christmas.model;
 
+import static christmas.constant.ErrorMessage.ERRORHEADER;
+import static christmas.constant.ErrorMessage.ERRORINMENU;
+import static christmas.constant.ErrorMessage.ERRORINMENUCOUNT;
 import static christmas.constant.Format.CRLF;
 import static christmas.constant.Format.DELIMETERPEREACHMENU;
 import static christmas.constant.Format.DELIMETERPERMENUORDER;
@@ -26,16 +29,16 @@ public class Menu {
 
     private void validateMenuFormat(final String menu) {
         if (!Pattern.matches(MENU_FORMAT.getValue(), menu)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERRORHEADER.getValue() + ERRORINMENU.getValue());
         }
     }
 
     private void validateMenuNumbers(Map<String, Integer> menu) {
         if (checkMenuNumberIsLessThanZero(menu)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERRORHEADER.getValue() + ERRORINMENUCOUNT.getValue());
         }
         if (checkMenuNumberIsMoreThanLimit(menu)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERRORHEADER.getValue() + ERRORINMENU.getValue());
         }
     }
 
@@ -43,7 +46,7 @@ public class Menu {
         try {
             return parseMenu(menu);
         } catch (IllegalStateException e) {
-            throw new IllegalStateException();
+            throw new IllegalStateException(ERRORHEADER.getValue() + ERRORINMENU.getValue());
         }
     }
 

@@ -1,5 +1,7 @@
 package christmas.model;
 
+import static christmas.constant.ErrorMessage.ERRORHEADER;
+import static christmas.constant.ErrorMessage.ERRORINDATE;
 import static christmas.constant.Format.REGEX_DIGIT;
 import static christmas.constant.Numbers.CHECKFRIDAY;
 import static christmas.constant.Numbers.CHECKSATURDAY;
@@ -26,14 +28,14 @@ public class OrderDate {
 
     private void validateOrderdateIsNumber(String orderDate) {
         if (!Pattern.matches(REGEX_DIGIT.getValue(), orderDate)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERRORHEADER.getValue() + ERRORINDATE.getValue());
         }
     }
 
     private void validateOrderdateRange(String orderDate) {
         int date = Integer.parseInt(orderDate);
         if (date < STARTOFDATE.getValue() || date > ENDOFDATE.getValue()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ERRORHEADER.getValue() + ERRORINDATE.getValue());
         }
     }
 

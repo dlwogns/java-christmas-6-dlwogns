@@ -29,6 +29,7 @@ public class PromotionController {
             OrderDate orderDate = new OrderDate(inputView.readDate());
             return orderDate;
         } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
             return getDate();
         }
     }
@@ -43,8 +44,10 @@ public class PromotionController {
             this.menuChecker = menuChecker;
             return menu;
         } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
             return getMenu();
         } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
             return getMenu();
         }
     }
