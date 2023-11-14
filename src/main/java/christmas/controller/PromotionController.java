@@ -29,25 +29,22 @@ public class PromotionController {
             OrderDate orderDate = new OrderDate(inputView.readDate());
             return orderDate;
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            outputView.printException(e);
             return getDate();
         }
     }
 
     private Menu getMenu() {
         MenuChecker menuChecker = new MenuChecker();
+        this.menuChecker = menuChecker;
         try {
             Menu menu = new Menu(inputView.readMenu());
             menuChecker.checkMenu(menu.getMenu());
             menuChecker.checkOnlyBeverage();
             outputView.printMenu(menu);
-            this.menuChecker = menuChecker;
             return menu;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return getMenu();
-        } catch (IllegalStateException e) {
-            System.out.println(e.getMessage());
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            outputView.printException(e);
             return getMenu();
         }
     }
