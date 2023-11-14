@@ -109,20 +109,45 @@ public class EventData {
 
     private String toStringPromotion() {
         String discount = "<혜택 내역>\n";
-        if (!Objects.equals(eventDiscount.get(DDAYDISCOUNT), INITIALDISCOUNT.getValue())) {
-            discount += "크리스마스 디데이 할인: -" + decimalFormat.format(eventDiscount.get(DDAYDISCOUNT)) + CRLF.getValue();
+        discount = toStringDdayDiscount(discount);
+        discount = toStringWeekDayDiscount(discount);
+        discount = toStringWeekEndDiscount(discount);
+        discount = toStringStarDiscount(discount);
+        discount = toStringChampagne(discount);
+        return discount;
+    }
+
+    private String toStringChampagne(String discount) {
+        if (champagne) {
+            discount += "증정 이벤트: -" + decimalFormat.format(CHAMPAGNEPRICE.getValue()) + CRLF.getValue();
         }
-        if (!Objects.equals(eventDiscount.get(WEEKDAYDISCOUNT), INITIALDISCOUNT.getValue())) {
-            discount += "평일 할인: -" + decimalFormat.format(eventDiscount.get(WEEKDAYDISCOUNT)) + CRLF.getValue();
-        }
-        if (!Objects.equals(eventDiscount.get(WEEKENDDISCOUNT), INITIALDISCOUNT.getValue())) {
-            discount += "주말 할인: -" + decimalFormat.format(eventDiscount.get(WEEKENDDISCOUNT)) + CRLF.getValue();
-        }
+        return discount;
+    }
+
+    private String toStringStarDiscount(String discount) {
         if (!Objects.equals(eventDiscount.get(STARDISCOUNT), INITIALDISCOUNT.getValue())) {
             discount += "특별 할인: -" + decimalFormat.format(eventDiscount.get(STARDISCOUNT)) + CRLF.getValue();
         }
-        if (champagne) {
-            discount += "증정 이벤트: -" + decimalFormat.format(CHAMPAGNEPRICE.getValue()) + CRLF.getValue();
+        return discount;
+    }
+
+    private String toStringWeekEndDiscount(String discount) {
+        if (!Objects.equals(eventDiscount.get(WEEKENDDISCOUNT), INITIALDISCOUNT.getValue())) {
+            discount += "주말 할인: -" + decimalFormat.format(eventDiscount.get(WEEKENDDISCOUNT)) + CRLF.getValue();
+        }
+        return discount;
+    }
+
+    private String toStringWeekDayDiscount(String discount) {
+        if (!Objects.equals(eventDiscount.get(WEEKDAYDISCOUNT), INITIALDISCOUNT.getValue())) {
+            discount += "평일 할인: -" + decimalFormat.format(eventDiscount.get(WEEKDAYDISCOUNT)) + CRLF.getValue();
+        }
+        return discount;
+    }
+
+    private String toStringDdayDiscount(String discount) {
+        if (!Objects.equals(eventDiscount.get(DDAYDISCOUNT), INITIALDISCOUNT.getValue())) {
+            discount += "크리스마스 디데이 할인: -" + decimalFormat.format(eventDiscount.get(DDAYDISCOUNT)) + CRLF.getValue();
         }
         return discount;
     }
