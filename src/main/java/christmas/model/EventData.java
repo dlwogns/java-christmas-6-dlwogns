@@ -118,8 +118,11 @@ public class EventData {
         if (!Objects.equals(eventDiscount.get(WEEKENDDISCOUNT), INITIALDISCOUNT.getValue())) {
             discount += "주말 할인: -" + decimalFormat.format(eventDiscount.get(WEEKENDDISCOUNT)) + CRLF.getValue();
         }
+        if (!Objects.equals(eventDiscount.get(STARDISCOUNT), INITIALDISCOUNT.getValue())) {
+            discount += "특별 할인: -" + decimalFormat.format(eventDiscount.get(STARDISCOUNT)) + CRLF.getValue();
+        }
         if (champagne) {
-            discount += "증정 이벤트: -" + CHAMPAGNEPRICE.getValue() + CRLF.getValue();
+            discount += "증정 이벤트: -" + decimalFormat.format(CHAMPAGNEPRICE.getValue()) + CRLF.getValue();
         }
         return discount;
     }
