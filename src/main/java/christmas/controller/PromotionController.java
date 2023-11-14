@@ -66,7 +66,8 @@ public class PromotionController {
         outputView.printEventData(eventData);
         return eventData;
     }
-    private EventBadge getEventBadge(Integer totalDiscount){
+
+    private EventBadge getEventBadge(Integer totalDiscount) {
         EventBadge eventBadge = new EventBadge(totalDiscount);
         outputView.printEventBadge(eventBadge);
         return eventBadge;

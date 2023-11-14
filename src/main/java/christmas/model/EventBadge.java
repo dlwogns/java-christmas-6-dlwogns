@@ -14,13 +14,17 @@ public class EventBadge {
     public EventBadge(Integer totalDiscount) {
         eventbadge = checkEventBadge(totalDiscount);
     }
-    private String checkEventBadge(Integer totalDiscount){
-        if(totalDiscount < CHECKSTAR.getValue())
+
+    private String checkEventBadge(Integer totalDiscount) {
+        if (totalDiscount < CHECKSTAR.getValue()) {
             return NONE.getValue();
-        if(totalDiscount < CHECKTREE.getValue())
+        }
+        if (totalDiscount < CHECKTREE.getValue()) {
             return STAR.getValue();
-        if(totalDiscount < CHECKSANTA.getValue())
+        }
+        if (totalDiscount < CHECKSANTA.getValue()) {
             return TREE.getValue();
+        }
         return SANTA.getValue();
     }
 

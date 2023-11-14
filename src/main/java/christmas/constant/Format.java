@@ -7,9 +7,7 @@ public enum Format {
     SPACE(" "),
     CRLF("\n"),
     DECIMALFORMAT("#,###"),
-    REGEX_DIGIT("^[\\d]*$")
-
-    ;
+    REGEX_DIGIT("^[\\d]*$");
 
     private final String value;
 

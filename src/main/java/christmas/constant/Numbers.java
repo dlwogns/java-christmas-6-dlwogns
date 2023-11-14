@@ -21,8 +21,7 @@ public enum Numbers {
     DISCOUNTPERMENU(2023),
     STARDAYDISCOUNT(1000),
     CHAMPAGNEPRICE(25000),
-    CHECKCHAMPAGNE(120000)
-    ;
+    CHECKCHAMPAGNE(120000);
 
     private final Integer value;
 

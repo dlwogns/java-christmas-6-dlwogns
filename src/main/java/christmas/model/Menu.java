@@ -67,7 +67,8 @@ public class Menu {
     private Map<String, Integer> parseMenuByDash(List<String> menu) {
         return menu.stream()
                 .map(s -> s.split(DELIMETERPEREACHMENU.getValue()))
-                .collect(Collectors.toMap(arr -> arr[MENUNAME.getValue()], arr -> Integer.parseInt(arr[MENUPRICE.getValue()])));
+                .collect(Collectors.toMap(arr -> arr[MENUNAME.getValue()],
+                        arr -> Integer.parseInt(arr[MENUPRICE.getValue()])));
     }
 
     public Map<String, Integer> getMenu() {

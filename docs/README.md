@@ -133,3 +133,11 @@
 - 
 ### NotEventData
 - [x] 10000원 이하 주문으로 이벤트에 해당하지 않을떄 NotEventData로 리턴
+
+### 테스트 코드 작성
+- [x] Menu
+- [x] OrderAmount
+- [x] OrderDate
+- [x] EventBadge
+- [ ] EventData
+- [ ] MenuChecker

@@ -6,8 +6,7 @@ public enum Discount {
     WEEKDAYDISCOUNT("WEEKDAYDISCOUNT"),
     WEEKENDDISCOUNT(" WEEKENDDISCOUNT"),
     STARDISCOUNT("STARDISCOUNT"),
-    TOTALDISCOUNT("TOTALDISCOUNT")
-    ;
+    TOTALDISCOUNT("TOTALDISCOUNT");
     private final String discount;
 
     Discount(String discount) {

@@ -1,7 +1,7 @@
 package christmas.model;
 
 import static christmas.constant.Format.DECIMALFORMAT;
-import static christmas.constant.PrintStrings.MONEYUNIT;
+import static christmas.constant.Strings.MONEYUNIT;
 
 import java.text.DecimalFormat;
 
