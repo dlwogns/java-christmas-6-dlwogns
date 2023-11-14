@@ -1,5 +1,7 @@
 package christmas.controller;
 
+import static christmas.constant.Numbers.EVENT_CHECK_VALUE;
+
 import christmas.model.EventBadge;
 import christmas.model.EventData;
 import christmas.model.Menu;
@@ -58,10 +60,10 @@ public class PromotionController {
 
     private EventData getEventData(OrderAmount orderAmount, MenuChecker menuChecker, OrderDate orderDate) {
         EventData eventData = null;
-        if (orderAmount.getOrderAmount() >= 10000) {
+        if (orderAmount.getOrderAmount() >= EVENT_CHECK_VALUE.getValue()) {
             eventData = new EventData(menuChecker, orderDate, orderAmount);
         }
-        if (orderAmount.getOrderAmount() < 10000) {
+        if (orderAmount.getOrderAmount() < EVENT_CHECK_VALUE.getValue()) {
             eventData = new NotEventData(menuChecker, orderDate, orderAmount);
         }
         outputView.printEventData(eventData);
