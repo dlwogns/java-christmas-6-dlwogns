@@ -16,16 +16,28 @@ public class EventBadge {
     }
 
     private String checkEventBadge(Integer totalDiscount) {
-        if (totalDiscount < CHECK_STAR.getValue()) {
+        if (checkNONEBadge(totalDiscount)) {
             return NONE.getValue();
         }
-        if (totalDiscount < CHECK_TREE.getValue()) {
+        if (checkStarBadge(totalDiscount)) {
             return STAR.getValue();
         }
-        if (totalDiscount < CHECK_SANTA.getValue()) {
+        if (checkTreeBadge(totalDiscount)) {
             return TREE.getValue();
         }
         return SANTA.getValue();
+    }
+
+    private boolean checkNONEBadge(Integer totalDiscount) {
+        return totalDiscount < CHECK_STAR.getValue();
+    }
+
+    private boolean checkStarBadge(Integer totalDiscount) {
+        return totalDiscount < CHECK_TREE.getValue();
+    }
+
+    private boolean checkTreeBadge(Integer totalDiscount) {
+        return totalDiscount < CHECK_SANTA.getValue();
     }
 
     @Override
