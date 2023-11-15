@@ -11,7 +11,7 @@ import java.util.Map;
 public class MenuChecker {
     private final EnumMap<MenuBoard, Integer> menuChecker = new EnumMap<>(MenuBoard.class);
 
-    public MenuChecker(Menu menu) throws IllegalArgumentException{
+    public MenuChecker(Menu menu) throws IllegalArgumentException {
         for (MenuBoard menuBoard : MenuBoard.values()) {
             menuChecker.put(menuBoard, INITIAL_MENU_COUNT.getValue());
         }
@@ -23,7 +23,7 @@ public class MenuChecker {
         for (String menuName : menu.keySet()) {
             MenuBoard menuBoard = checkMenuName(menuName);
             if (menuBoard == null) {
-                throw new IllegalArgumentException(ERROR_HEADER.getValue()+ ERROR_IN_MENU.getValue());
+                throw new IllegalArgumentException(ERROR_HEADER.getValue() + ERROR_IN_MENU.getValue());
             }
             menuChecker.replace(menuBoard, menuChecker.get(menuBoard) + menu.get(menuName));
         }
@@ -38,12 +38,14 @@ public class MenuChecker {
         return null;
     }
 
-    private void checkOnlyBeverage() throws IllegalArgumentException{
-        if(checkMenuCount(MenuBoard.MAIN_COURSE) && checkMenuCount(MenuBoard.DESSERT) && checkMenuCount(MenuBoard.APPETIZER)){
+    private void checkOnlyBeverage() throws IllegalArgumentException {
+        if (checkMenuCount(MenuBoard.MAIN_COURSE) && checkMenuCount(MenuBoard.DESSERT) && checkMenuCount(
+                MenuBoard.APPETIZER)) {
             throw new IllegalArgumentException(ERROR_HEADER.getValue() + ERROR_IN_MENU_ONLY_BEVERAGE.getValue());
         }
     }
-    private boolean checkMenuCount(MenuBoard menuType){
+
+    private boolean checkMenuCount(MenuBoard menuType) {
         return menuChecker.get(menuType).equals(INITIAL_MENU_COUNT.getValue());
     }
 

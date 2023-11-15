@@ -45,7 +45,8 @@ public class OrderDate {
     }
 
     public boolean checkStarDay() {
-        return orderDate % DAYS_PER_WEEK.getValue() == CHECK_STARDAY.getValue() || orderDate.equals(CHRISTMAS.getValue());
+        return orderDate % DAYS_PER_WEEK.getValue() == CHECK_STARDAY.getValue() || orderDate.equals(
+                CHRISTMAS.getValue());
     }
 
     public Integer getOrderDate() {

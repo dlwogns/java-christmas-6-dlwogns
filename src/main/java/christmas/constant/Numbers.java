@@ -22,8 +22,7 @@ public enum Numbers {
     STARDAY_DISCOUNT(1000),
     CHAMPAGNE_PRICE(25000),
     CHECK_CHAMPAGNE(120000),
-    EVENT_CHECK_VALUE(10000)
-    ;
+    EVENT_CHECK_VALUE(10000);
 
     private final Integer value;
 

@@ -38,7 +38,8 @@ public class OutputView {
         System.out.println("<12월 이벤트 배지>");
         System.out.println(eventBadge.toString());
     }
-    public void printException(Exception e){
+
+    public void printException(Exception e) {
         System.out.println(e.getMessage());
     }
 }

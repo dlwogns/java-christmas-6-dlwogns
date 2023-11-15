@@ -47,8 +47,9 @@ public class PromotionController {
             return getMenu();
         }
     }
-    private void checkMenu(Menu menu){
-        MenuChecker menuChecker =  new MenuChecker(menu);
+
+    private void checkMenu(Menu menu) {
+        MenuChecker menuChecker = new MenuChecker(menu);
         this.menuChecker = menuChecker;
     }
 
