@@ -156,7 +156,11 @@ public class EventData {
         String total = "<총혜택 금액>\n-";
         total += decimalFormat.format(eventDiscount.get(TOTALDISCOUNT)) + MONEY_UNIT.getValue() + CRLF.getValue();
         total += "<할인 후 예상 결제 금액>\n";
-        total += decimalFormat.format(orderAmount - eventDiscount.get(TOTALDISCOUNT)) + MONEY_UNIT.getValue();
+        Integer totalPrice = orderAmount - eventDiscount.get(TOTALDISCOUNT);
+        if (champagne) {
+            totalPrice += CHAMPAGNE_PRICE.getValue();
+        }
+        total += decimalFormat.format(totalPrice) + MONEY_UNIT.getValue();
         return total;
     }
 }
